@@ -1,0 +1,51 @@
+from bs4 import BeautifulSoup
+import requests
+name = input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+fr=handle.read()
+for l in handle:
+    if l.startswith('From'):
+       plac=l.find(Time)
+       while len(place)>0:
+            try:
+               results.append(search_dates(paragraph))
+            except Exception:
+               pass
+'''An other solution'''
+from dateutil.parser import parse
+name = input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+fr=handle.read()
+for l in handle:
+    if l.startswith('From'):
+       r=parse(l, fuzzy_with_tokens=True)
+       print(r)
+'''final accepted solution'''
+name = input("Enter file:")
+if len(name) < 1 : name = "mbox-short.txt"
+handle = open(name)
+fr=handle.read()
+lis=[]
+times=[]
+rt=[]
+cdic=dict()
+for l in handle:
+    if l.startswith('From'):
+       lis=l.split()
+       if len(lis)>2:
+           times=lis[-2]
+           rt.append(times[0:2])
+rt.sort()
+for n in rt:
+    if n not in cdic:
+        cdic[n]=1
+    else:
+        cdic[n]=cdic[n]+1 
+sl=[]
+sl = list(cdic.keys())
+'''print(sl)'''
+sl.sort()
+for key in sl:
+    print(key, cdic[key])
